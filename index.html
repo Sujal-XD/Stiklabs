@@ -124,7 +124,7 @@
           <div>
             <div class="eyebrow">You're early</div>
             <h2>Get in before the first drop.</h2>
-            <p class="lead">Leave your details and you'll see an instant confirmation on this page. We'll connect the form to a real signup database before launch.</p>
+            <p class="lead">Leave your details and you'll get an instant confirmation. Your registration is securely sent to the Stiklabs early-access list.</p>
 
             <form class="form" id="earlyAccessForm">
               <div class="field">
@@ -171,7 +171,9 @@
   const success = document.getElementById('successMessage');
   const successText = document.getElementById('successText');
 
-  form.addEventListener('submit', function(event) {
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwrRWBi5oxLUcDOWw-dWViB9JxTpSwNrBesrzx7T1Ll19Arm3kOWz64Fak1QDaa3ZHx/exec';
+
+  form.addEventListener('submit', async function(event) {
     event.preventDefault();
 
     const name = document.getElementById('name').value.trim();
@@ -180,13 +182,41 @@
 
     if (!name || !email || !city) return;
 
-    localStorage.setItem('stiklabsEarlyAccess', JSON.stringify({
-      name, email, city, registeredAt: new Date().toISOString()
-    }));
+    const button = form.querySelector('button[type="submit"]');
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = 'Joining...';
 
-    form.style.display = 'none';
-    success.classList.add('show');
-    successText.textContent = `Thanks, ${name}. Your Stiklabs early-access registration is confirmed on this device.`;
+    try {
+      const body = new URLSearchParams({
+        name: name,
+        email: email,
+        city: city
+      });
+
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        },
+        body: body.toString()
+      });
+
+      localStorage.setItem('stiklabsEarlyAccess', JSON.stringify({
+        name, email, city, registeredAt: new Date().toISOString()
+      }));
+
+      form.style.display = 'none';
+      success.classList.add('show');
+      successText.textContent = `Thanks, ${name}. You're officially on the Stiklabs early-access list.`;
+
+    } catch (error) {
+      button.disabled = false;
+      button.textContent = originalText;
+      alert('We could not complete your registration. Please try again.');
+      console.error('Stiklabs early access error:', error);
+    }
   });
 
   const saved = localStorage.getItem('stiklabsEarlyAccess');
