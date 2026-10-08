@@ -1,146 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Stiklabs — Digital Sticker Platform</title>
-
-    <meta name="description"
-          content="Stiklabs is a modern platform for discovering, exploring and organizing curated digital sticker collections.">
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #0b0b0f;
-            color: #ffffff;
-            line-height: 1.6;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 8%;
-            border-bottom: 1px solid #222;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .hero {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 120px 24px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(48px, 8vw, 88px);
-            line-height: 1;
-            margin-bottom: 28px;
-        }
-
-        .hero p {
-            max-width: 650px;
-            margin: 0 auto 36px;
-            color: #aaa;
-            font-size: 19px;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 14px 24px;
-            background: #ffffff;
-            color: #000000;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-
-        .section {
-            max-width: 1000px;
-            margin: auto;
-            padding: 80px 24px;
-        }
-
-        .section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .section p {
-            color: #aaa;
-            max-width: 700px;
-        }
-
-        footer {
-            border-top: 1px solid #222;
-            padding: 30px 8%;
-            color: #777;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Stiklabs — exclusive stickers, posters, keychains and more. Join early access for upcoming drops across India.">
+  <title>Stiklabs — Early Access</title>
+  <style>
+    :root{--bg:#090909;--line:#252525;--text:#f7f7f7;--muted:#9b9b9b;--max:1120px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    .wrap{max-width:var(--max);margin:auto;padding:0 24px}
+    header{position:sticky;top:0;z-index:10;background:rgba(9,9,9,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    nav{height:74px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.5px}
+    .brand img{width:48px;height:48px;object-fit:contain}
+    .navlinks{display:flex;gap:28px;color:#cfcfcf;font-size:14px}
+    .pill{border:1px solid #444;border-radius:999px;padding:8px 14px;font-size:13px}
+    .hero{min-height:calc(100vh - 74px);display:grid;grid-template-columns:1.08fr .92fr;gap:60px;align-items:center;padding:70px 0}
+    .eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#999;margin-bottom:17px}
+    h1{font-size:clamp(56px,8vw,104px);line-height:.88;letter-spacing:-5px}
+    .hero p{max-width:590px;color:#aaa;font-size:19px;margin:28px 0 32px}
+    .buttons{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 20px;border-radius:8px;border:1px solid #444;font-weight:700;cursor:pointer}
+    .btn.primary{background:#fff;color:#000;border-color:#fff}
+    .logo-card{border:1px solid var(--line);border-radius:22px;background:#0e0e0e;min-height:430px;display:flex;align-items:center;justify-content:center;padding:30px}
+    .logo-card img{max-height:380px;object-fit:contain}
+    section{padding:90px 0}
+    .section-head{max-width:760px}
+    h2{font-size:44px;letter-spacing:-2px;margin-bottom:16px}
+    .lead{color:#aaa;font-size:18px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+    .card{border:1px solid var(--line);border-radius:14px;padding:25px;background:#0e0e0e}
+    .card b{display:block;font-size:18px;margin-bottom:8px}
+    .card span{color:#999}
+    .early{border:1px solid #333;border-radius:20px;background:#111;padding:50px}
+    .early-grid{display:grid;grid-template-columns:1fr .8fr;gap:55px;align-items:start}
+    .form{margin-top:28px;display:grid;gap:14px}
+    .field label{display:block;font-size:13px;color:#aaa;margin-bottom:7px}
+    .field input{width:100%;background:#090909;color:#fff;border:1px solid #333;border-radius:8px;padding:13px 14px;outline:none}
+    .field input:focus{border-color:#777}
+    .form-note{font-size:12px;color:#666}
+    .success{display:none;border:1px solid #444;background:#0d0d0d;border-radius:12px;padding:24px;margin-top:24px}
+    .success.show{display:block}
+    .success h3{font-size:24px;margin-bottom:8px}
+    .success p{color:#aaa}
+    .map-card{border:1px solid var(--line);border-radius:16px;background:#0d0d0d;padding:25px}
+    .map-card h3{font-size:20px;margin-bottom:8px}
+    .map-card p{color:#999;margin-bottom:20px}
+    .map-placeholder{height:190px;border:1px solid #282828;border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#777;margin-bottom:18px;background:linear-gradient(135deg,#111,#0b0b0b)}
+    footer{border-top:1px solid var(--line);padding:32px 0;color:#777}
+    @media(max-width:850px){
+      .hero{grid-template-columns:1fr;padding:55px 0}
+      .logo-card{min-height:300px}
+      .navlinks{display:none}
+      .grid,.early-grid{grid-template-columns:1fr}
+      h1{letter-spacing:-3px}
+    }
+  </style>
 </head>
-
 <body>
-
+<header>
+  <div class="wrap">
     <nav>
-        <div class="logo">Stiklabs</div>
-        <div>Open Source Project</div>
+      <a class="brand" href="#">
+        <img src="stiklabs-logo.png" alt="Stiklabs logo">
+        <span>STIKLABS</span>
+      </a>
+      <div class="navlinks">
+        <a href="#about">About</a>
+        <a href="#drops">Drops</a>
+        <a href="#early">Early Access</a>
+        <a href="#location">Location</a>
+      </div>
+      <a class="pill" href="#early">Join Early Access</a>
     </nav>
+  </div>
+</header>
 
-    <main>
+<main>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Early access • Built in Pune • Coming across India</div>
+        <h1>STICKERS.<br>POSTERS.<br>MORE.</h1>
+        <p>Exclusive, crazy and collectible designs for people who want their stuff to look anything but ordinary.</p>
+        <div class="buttons">
+          <a class="btn primary" href="#early">Join the early access</a>
+          <a class="btn" href="#about">Explore Stiklabs</a>
+        </div>
+      </div>
+      <div class="logo-card">
+        <img src="stiklabs-logo.png" alt="Stiklabs">
+      </div>
+    </section>
 
-        <section class="hero">
-            <h1>Stiklabs</h1>
+    <section id="about">
+      <div class="section-head">
+        <div class="eyebrow">What we're building</div>
+        <h2>A home for the weird, the bold and the collectible.</h2>
+        <p class="lead">Stiklabs is an independent product brand creating exclusive stickers, posters, keychains and other visual goods. We're starting small, building carefully and preparing our first drops.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><b>Exclusive drops</b><span>Small-batch designs made to feel different from the usual.</span></div>
+        <div class="card"><b>More than stickers</b><span>Posters, keychains and future collectibles are part of the plan.</span></div>
+        <div class="card"><b>Made for India</b><span>Starting in Pune, with the goal of shipping drops across India.</span></div>
+      </div>
+    </section>
 
-            <p>
-                A modern platform for discovering, exploring and organizing
-                curated digital sticker collections.
-            </p>
+    <section id="drops">
+      <div class="section-head">
+        <div class="eyebrow">First drop</div>
+        <h2>Nothing to buy. Yet.</h2>
+        <p class="lead">We're keeping the store empty while the first Stiklabs collection is being prepared. No placeholder products, no fake stock — just the early build.</p>
+      </div>
+    </section>
 
-            <a
-                class="button"
-                href="https://github.com/Sujal-XD/Stiklabs"
-                target="_blank">
-                View on GitHub
-            </a>
-        </section>
+    <section id="early">
+      <div class="early">
+        <div class="early-grid">
+          <div>
+            <div class="eyebrow">You're early</div>
+            <h2>Get in before the first drop.</h2>
+            <p class="lead">Leave your details and you'll see an instant confirmation on this page. We'll connect the form to a real signup database before launch.</p>
 
-        <section class="section">
-            <h2>What is Stiklabs?</h2>
+            <form class="form" id="earlyAccessForm">
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+              </div>
+              <div class="field">
+                <label for="city">City</label>
+                <input id="city" name="city" type="text" autocomplete="address-level2" placeholder="Pune" required>
+              </div>
+              <button class="btn primary" type="submit">Join Early Access</button>
+              <div class="form-note">No payment required. No products are being sold yet.</div>
+            </form>
 
-            <p>
-                Stiklabs is an early-stage digital sticker platform focused on
-                making sticker discovery, organization and collection easier
-                for creators and users.
-            </p>
-        </section>
+            <div class="success" id="successMessage" role="status" aria-live="polite">
+              <h3>You're in. ✓</h3>
+              <p id="successText">Thanks for joining Stiklabs early access.</p>
+            </div>
+          </div>
 
-        <section class="section">
-            <h2>Built for creators</h2>
+          <div id="location" class="map-card">
+            <div class="eyebrow">Find Stiklabs</div>
+            <h3>Our base</h3>
+            <p>Pune, Maharashtra, India</p>
+            <div class="map-placeholder">Stiklabs<br>Pune, Maharashtra</div>
+            <a class="btn" href="https://maps.app.goo.gl/znp2GAcL2ebGbdS27" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
 
-            <p>
-                The project explores better ways to organize digital sticker
-                collections and create a simple experience for discovering
-                themed visual content.
-            </p>
-        </section>
+<footer>
+  <div class="wrap">© 2026 Stiklabs. Stickers • Posters • More.</div>
+</footer>
 
-    </main>
+<script>
+  const form = document.getElementById('earlyAccessForm');
+  const success = document.getElementById('successMessage');
+  const successText = document.getElementById('successText');
 
-    <footer>
-        © 2026 Stiklabs
-    </footer>
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
 
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const city = document.getElementById('city').value.trim();
+
+    if (!name || !email || !city) return;
+
+    localStorage.setItem('stiklabsEarlyAccess', JSON.stringify({
+      name, email, city, registeredAt: new Date().toISOString()
+    }));
+
+    form.style.display = 'none';
+    success.classList.add('show');
+    successText.textContent = `Thanks, ${name}. Your Stiklabs early-access registration is confirmed on this device.`;
+  });
+
+  const saved = localStorage.getItem('stiklabsEarlyAccess');
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      form.style.display = 'none';
+      success.classList.add('show');
+      successText.textContent = `You're already registered, ${data.name}. We'll keep the first drop on your radar.`;
+    } catch(e) {}
+  }
+</script>
 </body>
 </html>
