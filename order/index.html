@@ -1,1 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="Create your own custom stickers with Stiklabs.">
+  <title>Custom Sticker Orders | Stiklabs</title>
+  <link rel="icon" href="../stiklabs-logo.png" type="image/png">
 
+  <style>
+    :root {
+      --bg: #090909;
+      --panel: #101010;
+      --border: #292929;
+      --text: #f7f7f7;
+      --muted: #a0a0a0;
+      --max: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(100% - 40px, var(--max));
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      min-height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 11px 17px;
+      border: 1px solid #454545;
+      border-radius: 7px;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+    }
+
+    .button.primary {
+      background: white;
+      color: black;
+      border-color: white;
+      font-weight: 700;
+    }
+
+    .intro {
+      padding: 65px 0 35px;
+    }
+
+    .eyebrow {
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 11px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(44px, 7vw, 76px);
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: 25px;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .intro p {
+      max-width: 650px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 20px;
+      align-items: start;
+      padding-bottom: 70px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .panel-heading {
+      margin-bottom: 22px;
+    }
+
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 17px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: #ddd;
+      margin-bottom: 7px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      background: #080808;
+      color: white;
+      border: 1px solid #383838;
+      border-radius: 7px;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #aaa;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 8px;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+    }
+
+    .hint {
+      color: #888;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .summary {
+      position: sticky;
+      top: 20px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      color: #bbb;
+      font-size: 14px;
+    }
+
+    .summary-row strong {
+      color: white;
+      text-align: right;
+    }
+
+    .notice {
+      padding: 13px;
+      border: 1px solid #333;
+      border-radius: 7px;
+      background: #151515;
+      color: #aaa;
+      font-size: 12px;
+      margin: 18px 0;
+    }
+
+    .full-button {
+      width: 100%;
+      text-align: center;
+    }
+
+    .message {
+      display: none;
+      padding: 14px;
+      border: 1px solid #555;
+      border-radius: 7px;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      color: #777;
+      font-size: 13px;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .summary {
+        position: static;
+      }
+
+      .fields {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .intro {
+        padding-top: 42px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a class="brand" href="../">
+        <img src="../stiklabs-logo.png" alt="Stiklabs logo">
+        <span>STIKLABS</span>
+      </a>
+
+      <a class="button" href="../">Back to home</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="intro">
+    <div class="eyebrow">Custom orders · Stiklabs</div>
+    <h1>Make it yours.</h1>
+    <p class="muted">
+      Your artwork, your specifications, your stickers.
+      Tell us what you need and we'll review your requirements
+      before confirming the price and production slot.
+    </p>
+  </section>
+
+  <form id="orderForm">
+    <div class="layout">
+
+      <div>
+        <section class="panel">
+          <div class="panel-heading">
+            <div class="eyebrow">01 / Specifications</div>
+            <h2>Your stickers</h2>
+            <p class="muted">Tell us what you want printed.</p>
+          </div>
+
+          <div class="fields">
+
+            <div>
+              <label for="type">Sticker type *</label>
+              <select id="type" required>
+                <option value="">Select type</option>
+                <option>Die-cut stickers</option>
+                <option>Kiss-cut sticker sheet</option>
+                <option>Custom sticker sheet</option>
+                <option>Transparent stickers</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="material">Material *</label>
+              <select id="material" required>
+                <option value="">Select material</option>
+                <option>Vinyl</option>
+                <option>Transparent vinyl</option>
+                <option>Paper</option>
+                <option>Recommend for my design</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="size">Sticker size *</label>
+              <select id="size" required>
+                <option value="">Select size</option>
+                <option>Small, up to 5 cm</option>
+                <option>Medium, 5–8 cm</option>
+                <option>Large, 8–12 cm</option>
+                <option>Custom dimensions</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="quantity">Quantity *</label>
+              <select id="quantity" required>
+                <option value="">Select quantity</option>
+                <option>10 pieces</option>
+                <option>25 pieces</option>
+                <option>50 pieces</option>
+                <option>100 pieces</option>
+                <option>250 pieces</option>
+                <option>500 pieces</option>
+                <option>Custom quantity</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="finish">Finish *</label>
+              <select id="finish" required>
+                <option value="">Select finish</option>
+                <option>Gloss</option>
+                <option>Matte</option>
+                <option>No preference</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="cut">Cut style *</label>
+              <select id="cut" required>
+                <option value="">Select cut style</option>
+                <option>Die-cut around each design</option>
+                <option>Kiss-cut on a sheet</option>
+                <option>Rectangle or circle</option>
+                <option>Recommend for my design</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="artwork">Upload your artwork *</label>
+              <input
+                id="artwork"
+                type="file"
+                accept=".png,.jpg,.jpeg,.pdf,.svg"
+                multiple
+                required
+              >
+              <p class="hint">
+                Accepted formats: PNG, JPG, PDF and SVG.
+                Uploads will be connected to secure storage in the backend stage.
+              </p>
+            </div>
+
+            <div class="field full">
+              <label for="description">Design instructions</label>
+              <textarea
+                id="description"
+                maxlength="1500"
+                placeholder="Describe your design, colours, dimensions or special requirements."
+              ></textarea>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div class="eyebrow">02 / Contact</div>
+            <h2>Your details</h2>
+            <p class="muted">We'll use these details to discuss your order.</p>
+          </div>
+
+          <div class="fields">
+
+            <div>
+              <label for="name">Full name *</label>
+              <input id="name" autocomplete="name" required maxlength="100">
+            </div>
+
+            <div>
+              <label for="whatsapp">WhatsApp number *</label>
+              <input
+                id="whatsapp"
+                type="tel"
+                autocomplete="tel"
+                pattern="[+0-9 ()-]{8,20}"
+                placeholder="+91 98765 43210"
+                required
+              >
+            </div>
+
+            <div>
+              <label for="email">Email address *</label>
+              <input id="email" type="email" autocomplete="email" required>
+            </div>
+
+            <div>
+              <label for="city">City *</label>
+              <input id="city" autocomplete="address-level2" required>
+            </div>
+
+            <div>
+              <label for="delivery">Fulfilment method *</label>
+              <select id="delivery" required>
+                <option value="">Select method</option>
+                <option>Delivery</option>
+                <option>Collection, subject to approval</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="slot">Preferred production slot *</label>
+              <select id="slot" required>
+                <option value="">Choose preference</option>
+                <option>Earliest available</option>
+                <option>Within 3–5 days</option>
+                <option>Within 1–2 weeks</option>
+                <option>Flexible</option>
+              </select>
+              <p class="hint">Your slot is a request until approved.</p>
+            </div>
+
+            <div class="field full">
+              <label for="address">Delivery address</label>
+              <textarea id="address" placeholder="House, street, area and PIN code"></textarea>
+            </div>
+
+            <div class="field full">
+              <label>
+                <input id="instagram" type="checkbox">
+                I follow Stiklabs on Instagram and want to request the 10% discount.
+                I understand that eligibility must be verified.
+              </label>
+            </div>
+
+            <div class="field full">
+              <label>
+                <input id="agreement" type="checkbox" required>
+                I confirm my details are accurate and understand that this request
+                is not a confirmed order until Stiklabs approves the quote and slot.
+              </label>
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      <aside class="summary">
+        <section class="panel">
+          <div class="eyebrow">Order summary</div>
+          <h2>Request a quote</h2>
+          <p class="muted">Your final price will be confirmed after review.</p>
+
+          <div class="summary-row">
+            <span>Sticker type</span>
+            <strong id="summaryType">Not selected</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Size</span>
+            <strong id="summarySize">Not selected</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Quantity</span>
+            <strong id="summaryQuantity">Not selected</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Finish</span>
+            <strong id="summaryFinish">Not selected</strong>
+          </div>
+
+          <div class="notice">
+            No payment is collected on this page. The form is a frontend
+            preview and is not connected to the order database yet.
+            Do not use it for real customer orders.
+          </div>
+
+          <button class="button primary full-button" type="submit">
+            Prepare order request
+          </button>
+
+          <div id="message" class="message" role="status" aria-live="polite"></div>
+        </section>
+
+        <section class="panel">
+          <div class="eyebrow">Next steps</div>
+          <p class="muted">
+            01. Artwork review<br>
+            02. Quote confirmation<br>
+            03. Slot approval<br>
+            04. Payment instructions<br>
+            05. Printing and delivery
+          </p>
+        </section>
+      </aside>
+
+    </div>
+  </form>
+
+</main>
+
+<footer>
+  <div class="container">
+    <span>© 2026 Stiklabs</span>
+    <span>
+      <a href="../">Home</a> ·
+      <a href="../privacy.html">Privacy</a> ·
+      <a href="../terms.html">Terms</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  const fields = {
+    type: "summaryType",
+    size: "summarySize",
+    quantity: "summaryQuantity",
+    finish: "summaryFinish"
+  };
+
+  Object.entries(fields).forEach(([fieldId, summaryId]) => {
+    document.getElementById(fieldId).addEventListener("change", event => {
+      document.getElementById(summaryId).textContent =
+        event.target.value || "Not selected";
+    });
+  });
+
+  document.getElementById("orderForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const files = document.getElementById("artwork").files;
+
+    for (const file of files) {
+      if (file.size > 10 * 1024 * 1024) {
+        alert("Each artwork file must be 10 MB or smaller.");
+        return;
+      }
+    }
+
+    const message = document.getElementById("message");
+    message.classList.add("show");
+    message.textContent =
+      "Frontend preview only. No order was submitted, no files were uploaded, " +
+      "and no customer data was saved. The secure backend must be connected " +
+      "before this page can accept real orders.";
+  });
+</script>
+
+</body>
+</html>
